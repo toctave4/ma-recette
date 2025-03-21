@@ -12,8 +12,11 @@ import java.util.List;
 @RequestMapping("/api/utilisateurs")
 public class UtilisateurController {
 
-    @Autowired
-    private UtilisateurService utilisateurService;
+    private final UtilisateurService utilisateurService;
+
+    public UtilisateurController(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
+    }
 
     @GetMapping
     public List<UtilisateurDto> getAllUtilisateurs() {

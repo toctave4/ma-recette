@@ -1,8 +1,7 @@
 package com.toctave.ma_recette.utilisateurs.services;
 
-import lombok.*;
+import lombok.Data;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 @Data

@@ -11,8 +11,11 @@ import java.util.Optional;
 
 @Service
 public class UtilisateurService {
-    @Autowired
-    private UtilisateurRepository utilisateurRepository;
+    private final UtilisateurRepository utilisateurRepository;
+
+    public UtilisateurService(UtilisateurRepository utilisateurRepository) {
+        this.utilisateurRepository = utilisateurRepository;
+    }
 
     public List<UtilisateurDto> findAll() {
         return UtilisateurMapper.INSTANCE.toUtilisateurDto(utilisateurRepository.findAll());

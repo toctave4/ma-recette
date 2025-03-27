@@ -1,9 +1,13 @@
 package com.toctave.ma_recette.recettes;
 
+import com.toctave.ma_recette.ingredients.Ingredient;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,4 +24,7 @@ public class Recette {
     private CategorieRecette categorieRecette;
     private String imageUrl;
     private String valeursNutritionnelles;
+
+    @ManyToMany
+    private List<Ingredient> ingredients;
 }

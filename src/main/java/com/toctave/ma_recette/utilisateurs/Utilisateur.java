@@ -14,7 +14,6 @@ import java.io.Serial;
 @Setter
 public class Utilisateur {
     @Id
-//    @GeneratedValue
     private Long id;
     private String nom;
     private String prenom;

@@ -24,7 +24,4 @@ public class Recette {
     private CategorieRecette categorieRecette;
     private String imageUrl;
     private String valeursNutritionnelles;
-
-    @ManyToMany
-    private List<Ingredient> ingredients;
 }

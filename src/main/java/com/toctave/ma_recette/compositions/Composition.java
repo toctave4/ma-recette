@@ -10,6 +10,6 @@ import jakarta.persistence.ManyToOne;
 public class Composition {
     @EmbeddedId
     private CompositionId id;
-    private float quantite;
+    private Double quantite;
     private String unite;
 }

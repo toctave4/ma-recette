@@ -5,4 +5,5 @@ import com.toctave.ma_recette.compositions.CompositionId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CompositionRepository extends JpaRepository<Composition, CompositionId> {
+    CompositionId id(CompositionId id);
 }

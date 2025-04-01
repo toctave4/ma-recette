@@ -30,29 +30,33 @@ public class CompositionService {
         return CompositionMapper.INSTANCE.toCompositionDto(compositionRepository.findAll());
     }
 
+    public List<CompositionDto> findAllByRecetteId(Long recetteId) {
+        List<Composition> compositions = compositionRepository.findById_Recette_Id(recetteId);
+        return CompositionMapper.INSTANCE.toCompositionDto(compositions);
+    }
+
     public CompositionDto getCompositionById(Long recetteId, Long ingredientId) {
-        Optional<Recette> recetteOptional = recetteRepository.findById(recetteId);
-        Optional<Ingredient> ingredientOptional = ingredientRepository.findById(ingredientId);
-        Recette recette = recetteOptional.orElse(null);
-        Ingredient ingredient = ingredientOptional.orElse(null);
-        if (recette == null || ingredient == null) {
-            return null;
-        }
+        Recette recette = recetteRepository.findById(recetteId)
+                .orElseThrow(() -> new IllegalArgumentException("Recette not found with id: " + recetteId));
+        Ingredient ingredient = ingredientRepository.findById(ingredientId)
+                .orElseThrow(() -> new IllegalArgumentException("Ingredient not found with id: " + ingredientId));
+
         CompositionId compositionId = new CompositionId();
         compositionId.setRecette(recette);
         compositionId.setIngredient(ingredient);
-        Optional<Composition> optionalComposition = compositionRepository.findById(compositionId);
-        return optionalComposition.map(CompositionMapper.INSTANCE::toCompositionDto).orElse(null);
+
+        Composition composition = compositionRepository.findById(compositionId)
+                .orElseThrow(() -> new IllegalArgumentException("Composition not found with recetteId: " + recetteId + " and ingredientId: " + ingredientId));
+
+        return CompositionMapper.INSTANCE.toCompositionDto(composition);
     }
 
     public CompositionDto save(CompositionDto compositionDto) {
-        Optional<Recette> recetteOptional = recetteRepository.findById(compositionDto.getRecetteId());
-        Optional<Ingredient> ingredientOptional = ingredientRepository.findById(compositionDto.getIngredientId());
-        Recette recette = recetteOptional.orElse(null);
-        Ingredient ingredient = ingredientOptional.orElse(null);
-        if (recette == null || ingredient == null) {
-            return null;
-        }
+        recetteRepository.findById(compositionDto.getRecetteId())
+                .orElseThrow(() -> new IllegalArgumentException("Recette not found with id: " + compositionDto.getRecetteId()));
+        ingredientRepository.findById(compositionDto.getIngredientId())
+                .orElseThrow(() -> new IllegalArgumentException("Ingredient not found with id: " + compositionDto.getIngredientId()));
+
         Composition composition = CompositionMapper.INSTANCE.toComposition(compositionDto);
         Composition savedComposition = compositionRepository.save(composition);
         return CompositionMapper.INSTANCE.toCompositionDto(savedComposition);

@@ -11,8 +11,12 @@ import java.util.List;
 public interface CompositionMapper {
     CompositionMapper INSTANCE = Mappers.getMapper(CompositionMapper.class);
 
+    @Mapping(target = "recetteId", expression = "java(composition.getId().getRecette().getId())")
+    @Mapping(target = "ingredientId", expression = "java(composition.getId().getIngredient().getId())")
     CompositionDto toCompositionDto(Composition composition);
 
+    @Mapping(target = "id.recette.id", source = "recetteId")
+    @Mapping(target = "id.ingredient.id", source = "ingredientId")
     Composition toComposition(CompositionDto compositionDto);
 
     List<CompositionDto> toCompositionDto(List<Composition> compositions);

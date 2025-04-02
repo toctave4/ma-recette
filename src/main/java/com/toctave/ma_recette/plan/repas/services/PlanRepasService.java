@@ -1,5 +1,7 @@
 package com.toctave.ma_recette.plan.repas.services;
 
+import com.toctave.ma_recette.recettes.services.RecetteDto;
+import com.toctave.ma_recette.recettes.services.RecetteMapper;
 import com.toctave.ma_recette.utilisateurs.Utilisateur;
 import com.toctave.ma_recette.utilisateurs.repositories.UtilisateurRepository;
 import org.springframework.stereotype.Service;
@@ -44,5 +46,14 @@ public class PlanRepasService {
 
     public void delete(Long id) {
         planRepasRepository.deleteById(id);
+    }
+
+    public List<RecetteDto> getRecettesByPlanRepasId(Long id) {
+        Optional<PlanRepas> optionalPlanRepas = planRepasRepository.findById(id);
+        if (optionalPlanRepas.isPresent()) {
+            PlanRepas planRepas = optionalPlanRepas.get();
+            return RecetteMapper.INSTANCE.toRecetteDto(planRepas.getRecettes());
+        }
+        return null;
     }
 }

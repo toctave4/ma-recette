@@ -1,5 +1,7 @@
 package com.toctave.ma_recette.plan.repas.rest.api;
 
+import com.toctave.ma_recette.recettes.services.RecetteDto;
+import com.toctave.ma_recette.recettes.services.RecetteService;
 import org.springframework.web.bind.annotation.RestController;
 import com.toctave.ma_recette.plan.repas.services.PlanRepasDto;
 import com.toctave.ma_recette.plan.repas.services.PlanRepasService;
@@ -12,9 +14,11 @@ import java.util.List;
 @RequestMapping("/api/plan-repas")
 public class PlanRepasController {
     private final PlanRepasService planRepasService;
+    private final RecetteService recetteService;
 
-    public PlanRepasController(PlanRepasService planRepasService) {
+    public PlanRepasController(PlanRepasService planRepasService, RecetteService recetteService) {
         this.planRepasService = planRepasService;
+        this.recetteService = recetteService;
     }
 
     @GetMapping
@@ -26,6 +30,25 @@ public class PlanRepasController {
     public ResponseEntity<PlanRepasDto> getPlanRepasById(@PathVariable Long id) {
         PlanRepasDto planRepasDto = planRepasService.getPlanRepasById(id);
         return planRepasDto != null ? ResponseEntity.ok(planRepasDto) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/recettes")
+    public ResponseEntity<List<RecetteDto>> getRecettesByPlanRepasId(@PathVariable Long id) {
+        List<RecetteDto> recettes = planRepasService.getRecettesByPlanRepasId(id);
+        return recettes != null ? ResponseEntity.ok(recettes) : ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{id}/recettes")
+    public ResponseEntity<RecetteDto> addRecetteToPlanRepas(@PathVariable Long id, @RequestBody RecetteDto recetteDto) {
+        PlanRepasDto planRepasDto = planRepasService.getPlanRepasById(id);
+        if (planRepasDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        List<RecetteDto> recettes = planRepasDto.getRecettes();
+        recettes.add(recetteDto);
+        recetteService.save(recetteDto);
+        planRepasService.save(planRepasDto);
+        return ResponseEntity.ok(recetteDto);
     }
 
     @PostMapping

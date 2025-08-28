@@ -28,10 +28,10 @@ VALUES
     (1, 'Spaghetti Bolognese', 'A classic Italian pasta dish', 'Cook pasta, prepare sauce, mix together', 15, 30, 1, 1, 'http://example.com/spaghetti.jpg', '500 kcal'),
     (2, 'Chicken Curry', 'A spicy and flavorful dish', 'Cook chicken, prepare curry sauce, mix together', 20, 40, 2, 1, 'http://example.com/chicken_curry.jpg', '600 kcal');
 
-INSERT INTO plan_repas (id, utilisateur_id, date, objectif)
+INSERT INTO plan_repas (id, nom, utilisateur_id, date, objectif)
 VALUES
-    (1, 1, '2023-10-01', 'Weight Loss'),
-    (2, 2, '2023-10-02', 'Muscle Gain');
+    (1, 'Monthly plan',1, '2023-10-01', 'Weight Loss'),
+    (2, 'Weekly plan',2, '2023-10-02', 'Muscle Gain');
 
 INSERT INTO plan_repas_recettes (plan_repas_id, recettes_id)
 VALUES

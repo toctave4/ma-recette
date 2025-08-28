@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class PlanRepasDto {
     private Long id;
-    private Long utilisateurId;
+    private String nom;
     private List<RecetteDto> recettes;
     private Date date;
     private String objectif;

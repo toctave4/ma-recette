@@ -17,5 +17,4 @@ public class RecetteDto {
     private String categorieRecette;
     private String imageUrl;
     private String valeursNutritionnelles;
-    private List<IngredientDto> ingredients;
 }

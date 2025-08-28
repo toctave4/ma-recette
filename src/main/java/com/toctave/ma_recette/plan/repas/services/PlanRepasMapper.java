@@ -10,9 +10,9 @@ import java.util.List;
 public interface PlanRepasMapper {
     PlanRepasMapper INSTANCE = org.mapstruct.factory.Mappers.getMapper(PlanRepasMapper.class);
 
-    @Mapping(target = "utilisateurId", source = "utilisateur.id")
     PlanRepasDto toPlanRepasDto(PlanRepas planRepas);
 
+    @Mapping(target = "utilisateur", ignore = true) // Assuming you want to ignore this field for now
     PlanRepas toPlanRepas(PlanRepasDto planRepasDto);
 
     List<PlanRepasDto> toPlanRepasDto(List<PlanRepas> planRepasList);

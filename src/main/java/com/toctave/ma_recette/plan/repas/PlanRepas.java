@@ -20,6 +20,7 @@ import java.util.List;
 public class PlanRepas {
     @Id
     private Long id;
+    private String nom;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Utilisateur utilisateur;
     @ManyToMany(fetch = FetchType.LAZY)

@@ -21,6 +21,16 @@ public class CompositionController {
     @Autowired
     private CompositionService compositionService;
 
+    @GetMapping
+    public List<CompositionDto> getAllCompositions() {
+        return compositionService.findAll();
+    }
+
+    @GetMapping("/{recetteId}")
+    public List<CompositionDto> getCompositionsByRecetteId(@PathVariable Long recetteId) {
+        return compositionService.findAllByRecetteId(recetteId);
+    }
+
     @GetMapping("/{recetteId}/{ingredientId}")
     public CompositionDto getCompositionById(@PathVariable Long recetteId, @PathVariable Long ingredientId) {
         return compositionService.getCompositionById(recetteId, ingredientId);

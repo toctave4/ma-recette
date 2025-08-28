@@ -40,7 +40,6 @@ public class RecetteController {
         }
         updatedRecetteDto.setTitre(recetteDto.getTitre());
         updatedRecetteDto.setDescription(recetteDto.getDescription());
-        updatedRecetteDto.setIngredients(recetteDto.getIngredients());
         updatedRecetteDto.setInstructions(recetteDto.getInstructions());
         return ResponseEntity.ok(recetteService.save(updatedRecetteDto));
     }

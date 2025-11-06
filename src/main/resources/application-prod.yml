@@ -1,0 +1,64 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=true&requireSSL=true&verifyServerCertificate=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        generate_statistics: false
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:3600} # 1h en prod
+
+security:
+  enabled: true
+
+cors:
+  allowed-origins:
+    - https://votre-frontend-prod.com
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+
+rate-limiting:
+  requests-per-minute: 100 # Restrictif en prod
+
+logging:
+  level:
+    com.votre.package: INFO
+    org.springframework.security: WARN
+    org.springframework.web: WARN
+    root: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+aws:
+  region: ${AWS_REGION:us-east-1}
+
+cloud:
+  aws:
+    credentials:
+      instance-profile: true
+    region:
+      static: ${aws.region}
